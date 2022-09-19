@@ -1,0 +1,8 @@
+h1 {
+    font-size: 200%;
+}
+
+nav {
+    background-image: linear-gradient(to right, #23395d, #152238);
+    color: white;
+}
