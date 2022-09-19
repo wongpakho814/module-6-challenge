@@ -26,6 +26,10 @@ h3 {
     width: 100%;
 }
 
+input[type="text"] {
+    color: gray;
+}
+
 .form-input {
     font-size: 120%;
 }
