@@ -1,13 +1,16 @@
-// The personal APIKey 
-var apiKey = "852516b0ede9467dd7bf30dfdee70ba9";
+var apiKey = "852516b0ede9467dd7bf30dfdee70ba9"; // The personal API Key
+var storedCities = []; // The search history
 
 // Handles the submit button where user entered a city's name
 function formSubmitHandler(event) {
     event.preventDefault();
-  
-    let city = $("#city").value;
+    let city = $("#city").val();
   
     if (city) {
+        // Add the searched city to the search history   
+        storedCities.push(city);
+        localStorage.setItem("Stored cities", JSON.stringify(storedCities));
+        $('#city-buttons').append("<button data-city='" + city + "' class='btn mb-3'>" + city + "</button>");
         getCityCoords(city);
     } 
     else {
@@ -77,5 +80,17 @@ function displayWeather(weather, city) {
 
 }
 
-$("#city-form").on("submit", formSubmitHandler);
-$("#city-buttons").on("click", buttonClickHandler);
+// Initialize the page by retrieving the search history (stored cities) from local storage and rendering them, 
+// and adding the event listeners to the buttons
+function init() {
+    if (JSON.parse(localStorage.getItem("Stored cities")) !== null) {
+        storedCities = JSON.parse(localStorage.getItem("Stored cities"));
+    }
+    for (let i = 0; i < storedCities.length; i++) {
+        $('#city-buttons').append("<button data-city='" + storedCities[i] + "' class='btn mb-3'>" + storedCities[i] + "</button>");
+    }
+
+    $("#city-form").on("submit", formSubmitHandler);
+    $("#city-buttons").on("click", buttonClickHandler);
+}
+init();
