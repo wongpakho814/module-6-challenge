@@ -2,31 +2,47 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./assets/css/reset.css" />
-  <link rel="stylesheet" href="./assets/css/style.css" />
-  <title>Weather Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Weather Dashboard</title>
 </head>
 
 <body>
-  <header>
-    <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </nav>
-  </header>
+    <header>
+        <nav class="navbar navbar-expand-lg custom-navbar justify-content-center">
+            <h1>Weather Dashboard</h1>
+        </nav>
+    </header>
 
-  <main>
-    
-  </main>
+    <main class="container m-3">
+        <section class="row">
+            <div class="col-12 col-md-4 p-0">
+                <h3><b>Search for a City: </b></h3>
+                <form id="city-form">
+                    <input name="city" id="city" type="text" autofocus="true" class="form-input" />
+                    <button type="submit" class="btn my-3">Search</button>
+                </form>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="./assets/js/script.js"></script>
+                <div class="my-3" id="city-buttons">
+                    <button data-city="atlanta" class="btn mb-3">Atlanta</button>
+                    <button data-city="denver" class="btn mb-3">Denver</button>
+                    <button data-city="seattle" class="btn mb-3">Seattle</button>
+                    <button data-city="san-francisco" class="btn mb-3">San Francisco</button>
+                    <button data-city="orlando" class="btn mb-3">Orlando</button>
+                    <button data-city="new-york" class="btn mb-3">New York</button>
+                    <button data-city="chicago" class="btn mb-3">Chicago</button>
+                    <button data-city="austin" class="btn mb-3">Austin</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>

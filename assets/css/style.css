@@ -1,8 +1,64 @@
+:root {
+    --lightNavyBlue: #2e5984;
+    --darkNavyBlue: #152238;
+    --border-radius: .3rem;
+}
+
 h1 {
     font-size: 200%;
 }
 
-nav {
-    background-image: linear-gradient(to right, #23395d, #152238);
+h3 {
+    font-size: 150%;
+}
+
+.custom-navbar {
+    background-image: linear-gradient(to right, var(--lightNavyBlue), var(--darkNavyBlue));
+}
+
+.custom-navbar h1 {
     color: white;
+    font-weight: bold;
+}
+
+.form-input, .btn {
+    display: block;
+    width: 100%;
+}
+
+.form-input {
+    font-size: 120%;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 6px 5px;
+    border-radius: var(--border-radius);
+    border: none;
+    outline: none;
+}
+
+#city-form .btn {
+    color: white;
+    background-color: var(--lightNavyBlue);
+    transform: translate(-1px, -1px);
+}
+
+#city-form .btn:hover {
+    color: white;
+    background-color: var(--darkNavyBlue);
+}
+
+#city-form {
+    border-bottom: 2px solid lightgray;
+}
+
+#city-buttons .btn {
+    background-color: lightgray;
+    transform: translate(0px, 0px);
+    color: black;
+}
+
+#city-buttons .btn:hover {
+    background-color: gray;
 }
