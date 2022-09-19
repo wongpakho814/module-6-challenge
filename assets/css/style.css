@@ -4,8 +4,16 @@
     --border-radius: .3rem;
 }
 
+h1, h2, h3 {
+    font-weight: bold;
+}
+
 h1 {
     font-size: 200%;
+}
+
+h2 {
+    font-size: 175%;
 }
 
 h3 {
@@ -18,7 +26,6 @@ h3 {
 
 .custom-navbar h1 {
     color: white;
-    font-weight: bold;
 }
 
 .form-input, .btn {
@@ -65,4 +72,13 @@ h3 {
 
 #city-buttons .btn:hover {
     background-color: gray;
+}
+
+.today-weather {
+    border: 1px solid black;
+}
+
+.card {
+    background-color: var(--lightNavyBlue);
+    color: white;
 }

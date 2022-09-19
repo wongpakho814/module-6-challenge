@@ -55,7 +55,7 @@ function getCityCoords(name) {
 
 // Calling the OpenWeather Call 5 day/3 hour forecast API to get the weather of the given city's latitude and longitude
 function getCityWeather(lat, lon, name) {
-    let apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+    let apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + apiKey;
 
     fetch(apiUrl)
         .then(function (response) {
@@ -77,7 +77,7 @@ function getCityWeather(lat, lon, name) {
 
 // Displays the weather data fetched from the API
 function displayWeather(weather, city) {
-
+    
 }
 
 // Initialize the page by retrieving the search history (stored cities) from local storage and rendering them, 
