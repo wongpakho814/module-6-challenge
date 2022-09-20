@@ -90,27 +90,7 @@ function displayWeather(weather, city) {
         // the later time blocks as alternatives if the data for "12:00:00" is no longer available for today 
         let desc =  weather.list[i].dt_txt;
         if (desc.includes("12:00:00") || desc.includes("15:00:00") || desc.includes("18:00:00") || desc.includes("21:00:00")) {
-            let temp = weather.list[i].main.temp;
-            let wind = weather.list[i].wind.speed;
-            let humid = weather.list[i].main.humidity;
-
-            let todayTitleEl = document.createElement("h2"); // e.g. Atlanta (9/13/2022)
-            todayTitleEl.textContent = city + "(" + weather.list[i].dt_txt.substring(0, 10) + ") ";
-            let todayIconEl = document.createElement("img"); // e.g. 🔆
-            todayIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + weather.list[i].weather[0].icon + "@2x.png");
-            let todayTempEl = document.createElement("p");
-            todayTempEl.textContent = "Temp: " + temp + "°C";
-            let todayWindEl = document.createElement("p");
-            todayWindEl.textContent = "Wind: " + wind + "m/s";
-            let todayHumidEl = document.createElement("p");
-            todayHumidEl.textContent = "Humidity: " + humid + "%";
-
-            let todayWeatherEl = document.querySelector(".today-weather");
-            todayWeatherEl.appendChild(todayTitleEl);
-            todayWeatherEl.appendChild(todayIconEl);
-            todayWeatherEl.appendChild(todayTempEl);
-            todayWeatherEl.appendChild(todayWindEl);
-            todayWeatherEl.appendChild(todayHumidEl);
+            renderTodayWeather(i, weather, city);
             break;
         }
     }
@@ -118,38 +98,74 @@ function displayWeather(weather, city) {
     // Increment i so we skip the "12:00:00" item we already rendered above
     i++;
     // Rendering the weather forecast for the next 4 days
+    let count = 0; // Counts how many days of forecast we have rendered
     for (i; i < weather.list.length; i++) {
         if (weather.list[i].dt_txt.includes("12:00:00")) {
-            let temp = weather.list[i].main.temp;
-            let wind = weather.list[i].wind.speed;
-            let humid = weather.list[i].main.humidity;
-
-            let forecastCardEl = document.createElement("div");
-            forecastCardEl.setAttribute("class", "card mr-2");
-            let forecastDivEl = document.createElement("div");
-            forecastDivEl.setAttribute("class", "p-2");
-            let forecastDateEl = document.createElement("h3");
-            forecastDateEl.setAttribute("class", "pb-2");
-            forecastDateEl.textContent = weather.list[i].dt_txt.substring(0, 10);
-            let forecastIconEl = document.createElement("img");
-            forecastIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + weather.list[i].weather[0].icon + "@2x.png");
-            let forecastTempEl = document.createElement("p");
-            forecastTempEl.textContent = "Temp: " + temp + "°C";
-            let forecastWindEl = document.createElement("p");
-            forecastWindEl.textContent = "Wind: " + wind + "m/s";
-            let forecastHumidEl = document.createElement("p");
-            forecastHumidEl.textContent = "Humidity: " + humid + "%";
-
-            let forecastWeatherEl = document.querySelector(".forecast-cards");
-            forecastWeatherEl.appendChild(forecastCardEl);
-            forecastCardEl.appendChild(forecastDivEl);
-            forecastDivEl.appendChild(forecastDateEl);
-            forecastDivEl.appendChild(forecastIconEl);
-            forecastDivEl.appendChild(forecastTempEl);
-            forecastDivEl.appendChild(forecastWindEl);
-            forecastDivEl.appendChild(forecastHumidEl);
+            renderForecastWeather(i, weather);
+            count++;
         }
     }
+    // If only 4 "12:00:00" items have been found and rendered, render the final element in the list as the fifth day
+    if (count === 4) {
+        renderForecastWeather(39, weather);
+    }
+}
+
+// Creates and renders the HTML for today's weather
+function renderTodayWeather(i, weather, city) {
+    let temp = weather.list[i].main.temp;
+    let wind = weather.list[i].wind.speed;
+    let humid = weather.list[i].main.humidity;
+
+    let todayTitleEl = document.createElement("h2"); // e.g. Atlanta (9/13/2022)
+    todayTitleEl.textContent = city + " (" + weather.list[i].dt_txt.substring(0, 10) + ") ";
+    let todayIconEl = document.createElement("img"); // e.g. 🔆
+    todayIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + weather.list[i].weather[0].icon + "@2x.png");
+    let todayTempEl = document.createElement("p");
+    todayTempEl.textContent = "Temp: " + temp + "°C";
+    let todayWindEl = document.createElement("p");
+    todayWindEl.textContent = "Wind: " + wind + "m/s";
+    let todayHumidEl = document.createElement("p");
+    todayHumidEl.textContent = "Humidity: " + humid + "%";
+
+    let todayWeatherEl = document.querySelector(".today-weather");
+    todayWeatherEl.appendChild(todayTitleEl);
+    todayWeatherEl.appendChild(todayIconEl);
+    todayWeatherEl.appendChild(todayTempEl);
+    todayWeatherEl.appendChild(todayWindEl);
+    todayWeatherEl.appendChild(todayHumidEl);
+}
+
+// Creates and renders the HTML for the next 5 days' forecasted weather
+function renderForecastWeather(i, weather) {
+    let temp = weather.list[i].main.temp;
+    let wind = weather.list[i].wind.speed;
+    let humid = weather.list[i].main.humidity;
+
+    let forecastCardEl = document.createElement("div");
+    forecastCardEl.setAttribute("class", "card mr-2 align-items-center");
+    let forecastDivEl = document.createElement("div");
+    forecastDivEl.setAttribute("class", "p-2");
+    let forecastDateEl = document.createElement("h3");
+    forecastDateEl.setAttribute("class", "pb-2");
+    forecastDateEl.textContent = weather.list[i].dt_txt.substring(0, 10);
+    let forecastIconEl = document.createElement("img");
+    forecastIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + weather.list[i].weather[0].icon + "@2x.png");
+    let forecastTempEl = document.createElement("p");
+    forecastTempEl.textContent = "Temp: " + temp + "°C";
+    let forecastWindEl = document.createElement("p");
+    forecastWindEl.textContent = "Wind: " + wind + "m/s";
+    let forecastHumidEl = document.createElement("p");
+    forecastHumidEl.textContent = "Humidity: " + humid + "%";
+
+    let forecastWeatherEl = document.querySelector(".forecast-cards");
+    forecastWeatherEl.appendChild(forecastCardEl);
+    forecastCardEl.appendChild(forecastDivEl);
+    forecastDivEl.appendChild(forecastDateEl);
+    forecastDivEl.appendChild(forecastIconEl);
+    forecastDivEl.appendChild(forecastTempEl);
+    forecastDivEl.appendChild(forecastWindEl);
+    forecastDivEl.appendChild(forecastHumidEl);
 }
 
 // Initialize the page by retrieving the search history (stored cities) from local storage and rendering them, 

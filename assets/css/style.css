@@ -4,6 +4,10 @@
     --border-radius: .3rem;
 }
 
+main {
+    max-width: 95%; /* prevents overflow */
+}
+
 h1, h2, h3 {
     font-weight: bold;
 }
