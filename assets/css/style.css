@@ -74,8 +74,8 @@ h3 {
     background-color: gray;
 }
 
-.today-weather {
-    border: 1px solid black;
+.result-title {
+    display: none;
 }
 
 .card {
