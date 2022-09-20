@@ -43,6 +43,7 @@ h3 {
 
 .form-input {
     font-size: 120%;
+    border: 1px solid black;
 }
 
 .btn {

@@ -39,9 +39,15 @@ function getCityCoords(name) {
                 // console.log(response);
                 response.json().then(function (data) {
                     // console.log(data);
-                    lat = data[0].lat;
-                    lon = data[0].lon;
-                    getCityWeather(lat, lon, name);
+                    // Check if the API has returned any results
+                    if (data.length !== 0) {
+                        lat = data[0].lat;
+                        lon = data[0].lon;
+                        getCityWeather(lat, lon, name);
+                    }
+                    else {
+                        alert("No results are found!");
+                    }
                 });
             } 
             else {
@@ -82,6 +88,9 @@ function displayWeather(weather, city) {
     // Clear the innerHTML of the previous results, if there are
     document.querySelector(".today-weather").innerHTML = "";
     document.querySelector(".forecast-cards").innerHTML = "";
+
+    // Capitalize the first letter of each word in the city's name
+    city = capitalizeWords(city);
 
     // Rendering the weather for today
     let i = 0;
@@ -143,7 +152,7 @@ function renderForecastWeather(i, weather) {
     let humid = weather.list[i].main.humidity;
 
     let forecastCardEl = document.createElement("div");
-    forecastCardEl.setAttribute("class", "card mr-2 align-items-center");
+    forecastCardEl.setAttribute("class", "card mr-2 mb-2 align-items-center");
     let forecastDivEl = document.createElement("div");
     forecastDivEl.setAttribute("class", "p-2");
     let forecastDateEl = document.createElement("h3");
@@ -166,6 +175,16 @@ function renderForecastWeather(i, weather) {
     forecastDivEl.appendChild(forecastTempEl);
     forecastDivEl.appendChild(forecastWindEl);
     forecastDivEl.appendChild(forecastHumidEl);
+}
+
+// Capitalize the first letter of each word
+function capitalizeWords(sentence) {
+    sentence = sentence.toLowerCase();
+    const words = sentence.split(" ");
+
+    return words.map((word) => { 
+        return word[0].toUpperCase() + word.substring(1); 
+    }).join(" ");
 }
 
 // Initialize the page by retrieving the search history (stored cities) from local storage and rendering them, 
