@@ -7,12 +7,6 @@ function formSubmitHandler(event) {
     let city = $("#city").val();
   
     if (city) {
-        // Add the searched city to the search history if it doesn't exist in the search history already
-        if (!(storedCities.map(cities => cities.toLowerCase())).includes(city.toLowerCase())) {
-            storedCities.push(city);
-            localStorage.setItem("Stored cities", JSON.stringify(storedCities));
-            $('#city-buttons').append("<button data-city='" + city + "' class='btn mb-3'>" + city + "</button>");
-        }   
         getCityCoords(city);
     } 
     else {
@@ -43,6 +37,12 @@ function getCityCoords(name) {
                     // console.log(data);
                     // Check if the API has returned any results
                     if (data.length !== 0) {
+                        // Add the successful search to the search history if it doesn't exist in the search history
+                        if (!(storedCities.map(cities => cities.toLowerCase())).includes(name.toLowerCase())) {
+                            storedCities.push(name);
+                            localStorage.setItem("Stored cities", JSON.stringify(storedCities));
+                            $('#city-buttons').append("<button data-city='" + name + "' class='btn mb-3'>" + name + "</button>");
+                        }   
                         lat = data[0].lat;
                         lon = data[0].lon;
                         getCityWeather(lat, lon, name);
