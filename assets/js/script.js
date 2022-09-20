@@ -7,10 +7,12 @@ function formSubmitHandler(event) {
     let city = $("#city").val();
   
     if (city) {
-        // Add the searched city to the search history   
-        storedCities.push(city);
-        localStorage.setItem("Stored cities", JSON.stringify(storedCities));
-        $('#city-buttons').append("<button data-city='" + city + "' class='btn mb-3'>" + city + "</button>");
+        // Add the searched city to the search history if it doesn't exist in the search history already
+        if (!(storedCities.map(cities => cities.toLowerCase())).includes(city.toLowerCase())) {
+            storedCities.push(city);
+            localStorage.setItem("Stored cities", JSON.stringify(storedCities));
+            $('#city-buttons').append("<button data-city='" + city + "' class='btn mb-3'>" + city + "</button>");
+        }   
         getCityCoords(city);
     } 
     else {
